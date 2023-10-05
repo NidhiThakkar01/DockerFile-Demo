@@ -11,23 +11,23 @@ pipeline{
 			}
 		}
 		stage('Build') {
-            steps {
-                sh 'mvn -B -DskipTests clean package'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'mvn test'
-            }
-        }
+	            steps {
+	                sh 'mvn -B -DskipTests clean package'
+	            }
+	        }
+	        stage('Test') {
+	            steps {
+	                sh 'mvn test'
+	            }
+	        }
 	}
 	post {
 		always{
 			echo "Build execution completed"
 		}
 		success {
-			echo "Build passed successfully"
-			archiveArtifacts artifacts:**/target/.*.jar
+		    echo "Build passed successfully"
+		    archiveArtifacts artifacts: '**/target/*.jar', allowEmptyArchive: true
 		}
 		failure{
 			echo "Exucution failed!!"
