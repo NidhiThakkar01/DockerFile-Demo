@@ -20,7 +20,7 @@ pipeline{
 	        }
 		stage('Environment var print') {
 	            steps {
-	                echo "$RANDOM_VAR"
+	                sh "env"
 	            }
 	        }
 	}
