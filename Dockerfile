@@ -4,7 +4,7 @@ LABEL description="Simple docker iage for demo purpose"
 
 RUN apt-get update &&\
 	apt-get install -y maven \
-	node
+	nodejs
 
 ENV RANDOM_VAR="HELLO"
 
