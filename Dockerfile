@@ -9,9 +9,11 @@ RUN apt-get update &&\
 
 RUN mvn --version
 
-RUN git clone https://github.com/NidhiThakkar01/simple-java-maven-app
+RUN git clone https://github.com/NidhiThakkar01/simple-java-maven-app.git
 
 ENV RANDOM_VAR="HELLO"
+
+WORKDIR simple-java-maven-app
 
 CMD ["bash"]
 
