@@ -8,18 +8,19 @@ pipeline{
 				sh "mvn --version"
 			}
 		}
-		stage('Build') {
+		stage('maven version') {
 	            steps {
-			dir('simple-java-maven-app') { // Set the working directory
-	                    sh "ls"
-	                    sh "pwd"
-	                    sh 'mvn -B -DskipTests clean package'
-	                }
+			sh "mvn --version
 	            }
 	        }
-	        stage('Test') {
+	        stage('node version') {
 	            steps {
-	                sh 'mvn test'
+	                sh 'node --version'
+	            }
+	        }
+		stage('Environment var print') {
+	            steps {
+	                echo "$RANDOM_VAR"
 	            }
 	        }
 	}
@@ -29,7 +30,6 @@ pipeline{
 		}
 		success {
 		    echo "Build passed successfully"
-		    archiveArtifacts artifacts: '**/target/*.jar', allowEmptyArchive: true
 		}
 		failure{
 			echo "Exucution failed!!"
