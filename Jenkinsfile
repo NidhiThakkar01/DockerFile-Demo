@@ -1,7 +1,7 @@
 pipeline{
 	agent{
 		docker{
-			dockerFile true
+			dockerfile true
 		}
 	}
 	stages{
@@ -27,7 +27,7 @@ pipeline{
 		}
 		success {
 			echo "Build passed successfully"
-			archieveArtifacts artifacts:/target/.*.jar
+			archiveArtifacts artifacts:**/target/.*.jar
 		}
 		failure{
 			echo "Exucution failed!!"
