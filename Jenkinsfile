@@ -10,9 +10,11 @@ pipeline{
 		}
 		stage('Build') {
 	            steps {
-			sh "ls"
-			sh "pwd"
-	                sh 'mvn -B -DskipTests clean package'
+			dir('simple-java-maven-app') { // Set the working directory
+	                    sh "ls"
+	                    sh "pwd"
+	                    sh 'mvn -B -DskipTests clean package'
+	                }
 	            }
 	        }
 	        stage('Test') {
