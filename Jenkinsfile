@@ -25,31 +25,25 @@ pipeline{
 	 //        }
 	}
 	post {
-        success {
+        	always {
             script {
-                def buildUrl = currentBuild.absoluteUrl
-                def github = GitHub.connect()
-                def repository = github.getRepository('NidhiThakkar01/DockerFile-Demo')
-                def prNumber = currentBuild.displayName.split('#')[1]
-                def sha = currentBuild.revision
+                def githubStatus = currentBuild.resultIsBetterOrEqualTo("SUCCESS") ? 'SUCCESS' : 'FAILURE'
+                def githubDescription = currentBuild.resultIsBetterOrEqualTo("SUCCESS") ? 'Build and test passed' : 'Build and test failed'
 
+                // Specify the context and target URL
                 def context = 'Jenkins CI'
-                def description = 'Build and test passed'
-                repository.createCommitStatus(sha, 'SUCCESS', description, context, buildUrl, prNumber)
+                def buildUrl = currentBuild.absoluteUrl
+
+                // Update the GitHub commit status using the githubNotify step
+                step([
+                      $class: "GitHubCommitStatusSetter",
+                      reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/NidhiThakkar01/DockerFile-Demo"],
+                      contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins/build-status"],
+                      errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
+                      statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: "$githubDescription", state: "$githubStatus"]] ]
+                  ]);
             }
         }
-        failure {
-            script {
-                def buildUrl = currentBuild.absoluteUrl
-                def github = GitHub.connect()
-                def repository = github.getRepository('NidhiThakkar01/DockerFile-Demo')
-                def prNumber = currentBuild.displayName.split('#')[1]
-                def sha = currentBuild.revision
-
-                def context = 'Jenkins CI'
-                def description = 'Build and test failed'
-                repository.createCommitStatus(sha, 'FAILURE', description, context, buildUrl, prNumber)
-            }
         }
     }
 }
