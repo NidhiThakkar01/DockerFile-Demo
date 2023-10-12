@@ -29,7 +29,7 @@ pipeline{
             script {
                 def buildUrl = currentBuild.absoluteUrl
                 def github = GitHub.connect()
-                def repository = github.getRepository('yourusername/yourrepository')
+                def repository = github.getRepository('NidhiThakkar01/DockerFile-Demo')
                 def prNumber = currentBuild.displayName.split('#')[1]
                 def sha = currentBuild.revision
 
@@ -42,7 +42,7 @@ pipeline{
             script {
                 def buildUrl = currentBuild.absoluteUrl
                 def github = GitHub.connect()
-                def repository = github.getRepository('yourusername/yourrepository')
+                def repository = github.getRepository('NidhiThakkar01/DockerFile-Demo')
                 def prNumber = currentBuild.displayName.split('#')[1]
                 def sha = currentBuild.revision
 
