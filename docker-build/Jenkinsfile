@@ -1,0 +1,34 @@
+pipeline{
+    agent any
+    options{
+        timestamps()
+    }
+    environments{
+        artifactory_creds=credentials("artifactory-creds")
+        artifactory_registry="docker-images-docker"
+        ARTIFACTORY_URL="https://nidhithakkar.jfrog.io/"
+    }
+    stages{
+        stage("fetch version"){
+            steps{
+                version = readFile(file: "version.txt").trim()
+            }
+        }
+        stage("create docker image"){
+            steps{
+                script{
+                    dockerImage=docker.build("$env.artifactory_registry/maven-image-with-app:$version", "../Dockerfile")
+                }
+            }
+        }
+        stage("push docker image to artifactory"){
+            steps{
+                script{
+                    docker.withRegistry("$env.ARTIFACTORY_URL/$env.artifactory_registry", "$artifactory_creds"){
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+    }
+}
