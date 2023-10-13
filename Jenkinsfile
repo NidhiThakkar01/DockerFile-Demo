@@ -5,7 +5,7 @@ pipeline{
 	stages{
 		stage("maven version check"){
 			steps{
-				error "Throwing an error"
+				sh 'mvn test'
 			}
 		}
 		// stage('maven version') {
