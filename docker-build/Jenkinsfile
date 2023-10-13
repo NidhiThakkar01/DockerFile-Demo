@@ -3,7 +3,7 @@ pipeline{
     options{
         timestamps()
     }
-    environments{
+    environment{
         artifactory_creds=credentials("artifactory-creds")
         artifactory_registry="docker-images-docker"
         ARTIFACTORY_URL="https://nidhithakkar.jfrog.io/"
@@ -11,7 +11,9 @@ pipeline{
     stages{
         stage("fetch version"){
             steps{
-                version = readFile(file: "version.txt").trim()
+                script{
+                    version = readFile(file: "~/version.txt").trim()
+                }
             }
         }
         stage("create docker image"){
