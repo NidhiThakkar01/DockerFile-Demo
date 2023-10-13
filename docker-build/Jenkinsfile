@@ -12,7 +12,7 @@ pipeline{
         stage("fetch version"){
             steps{
                 script{
-                    version = readFile(file: "~/version.txt").trim()
+                    version = readFile(file: "version.txt").trim()
                 }
             }
         }
