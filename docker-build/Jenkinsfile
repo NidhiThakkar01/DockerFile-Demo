@@ -26,7 +26,7 @@ pipeline{
         stage("push docker image to artifactory"){
             steps{
                 script{
-                    docker.withRegistry("$env.ARTIFACTORY_URL/$env.artifactory_registry", "$artifactory_creds"){
+                    docker.withRegistry("$env.ARTIFACTORY_URL/$env.artifactory_registry", "artifactory-creds"){
                         dockerImage.push()
                     }
                 }
