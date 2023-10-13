@@ -1,10 +1,15 @@
 From ubuntu:latest
 
-LABEL description="Simple docker iage for demo purpose"
+LABEL description="Simple docker image for demo purpose"
 
 RUN apt-get update &&\
 	apt-get install -y maven \
 	nodejs
+
+WORKDIR /app
+RUN git clone https://github.com/NidhiThakkar01/simple-java-maven-app.git
+
+RUN mvn install
 
 ENV RANDOM_VAR="HELLO"
 
