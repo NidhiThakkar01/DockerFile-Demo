@@ -10,8 +10,6 @@ RUN apt-get update &&\
 WORKDIR /app
 RUN git clone https://github.com/NidhiThakkar01/simple-java-maven-app.git
 
-RUN mvn install
-
 ENV RANDOM_VAR="HELLO"
 
 CMD ["bash"]
