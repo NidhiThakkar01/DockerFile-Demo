@@ -19,7 +19,7 @@ pipeline{
         stage("create docker image"){
             steps{
                 script{
-                    dockerImage=docker.build("$env.artifactory_registry/maven-image-with-app:$version")
+                    dockerImage=docker.build("$env.artifactory_registry/maven-image-with-app:$version", "--build-arg ARG1=HELLO")
                 }
             }
         }
