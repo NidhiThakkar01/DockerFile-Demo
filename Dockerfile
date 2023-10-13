@@ -7,8 +7,9 @@ RUN apt-get update &&\
 	nodejs \
  	git
 
-WORKDIR /app
 RUN git clone https://github.com/NidhiThakkar01/simple-java-maven-app.git
+
+WORKDIR /simple-java-maven-app
 
 ENV RANDOM_VAR="HELLO"
 
