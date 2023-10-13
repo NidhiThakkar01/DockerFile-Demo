@@ -1,5 +1,5 @@
 From ubuntu:latest
-ARG1="Hey"
+ARG ARG1="Hey"
 LABEL description="Simple docker image for demo purpose"
 
 RUN apt-get update &&\
