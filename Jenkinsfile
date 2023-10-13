@@ -6,6 +6,8 @@ pipeline{
 		stage("maven version check"){
 			steps{
 				sh 'pwd'
+				sh 'ls'
+				sh 'ls /'
 				sh 'mvn test'
 			}
 		}
